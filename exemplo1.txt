@@ -1,0 +1,36 @@
+PROGRAMA {pesquisa o X na lista}
+{DECLARACOES}
+INTEIRO n, x, posicao, achei
+LISTAINT A[20]
+{ALGORITMO}
+{de inicio, armazena os dados da lista}
+ESCREVA 'quantos números vai armazenar na lista?'
+LEIA n
+
+posicao := 1
+ENQUANTO posicao .MEI. n FACA
+ESCREVA 'digite o próximo número da lista: '
+LEIA A[posicao]
+posicao := posicao + 1
+FIMENQ
+{obtêm o número e usa uma função para pesquisa}
+ESCREVA 'digite o número para pesquisar na lista'
+LEIA x
+posicao := 1
+achei := 0
+ENQUANTO posicao .MEI. n FACA
+SE A[posicao] .IGU. x
+ENTAO
+achei := posicao
+posicao := n + 1
+SENAO
+posicao := posicao + 1
+FIMSE
+FIMENQ
+SE achei .DIF. 0
+ENTAO
+ESCREVA 'x = ', x, 'é o', achei, ' numero da lista'
+SENAO
+ESCREVA 'x =', x, 'não foi encontrado na lista'
+FIMSE
+FIMPROG
