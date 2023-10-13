@@ -86,9 +86,7 @@ erro {numero}{letra}({letra}|{numero}){0,7}|({letra}|{numero}){9,}
 
 int yywrap();
 
-int main(){
-	
-	
+int main(){	
     if(!(tokens = fopen ("TokenDescricao.txt", "w"))){//Teste de verificação da existencia do arquivo
         printf ("Arquivos não existe\n");
         return 0;
