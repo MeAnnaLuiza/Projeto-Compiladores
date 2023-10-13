@@ -1,7 +1,7 @@
 
 # Projeto Compiladores
 
-Uma breve descrição sobre o que esse projeto faz e para quem ele é
+Este repositório tem o objetivo de apresentar uma possível solução para os problemas apresentados no enunciado do projeto da disciplina CIC220 - Compiladores, na Universidade Federal de Itajubá.
 
 
 ## Executando o analisador léxico
