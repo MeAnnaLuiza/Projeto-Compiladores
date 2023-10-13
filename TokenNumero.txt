@@ -1,0 +1,94 @@
+0 PROGRAMA
+6 INTEIRO
+13 n
+19 ,
+13 x
+19 ,
+13 posicao
+19 ,
+13 achei
+7 LISTAINT
+14 A[20]
+11 ESCREVA
+18 'quantos números vai armazenar na lista?'
+10 LEIA
+13 n
+13 posicao
+8 :=
+4 1
+12 ENQUANTO
+13 posicao
+17 .MEI.
+13 n
+121 FACA
+11 ESCREVA
+18 'digite o próximo número da lista: '
+10 LEIA
+14 A[posicao]
+13 posicao
+8 :=
+13 posicao
+15 +
+4 1
+122 FIMENQ
+11 ESCREVA
+18 'digite o número para pesquisar na lista'
+10 LEIA
+13 x
+13 posicao
+8 :=
+4 1
+13 achei
+8 :=
+4 0
+12 ENQUANTO
+13 posicao
+17 .MEI.
+13 n
+121 FACA
+9 SE
+14 A[posicao]
+17 .IGU.
+13 x
+91 ENTAO
+13 achei
+8 :=
+13 posicao
+13 posicao
+8 :=
+13 n
+15 +
+4 1
+92 SENAO
+13 posicao
+8 :=
+13 posicao
+15 +
+4 1
+93 FIMSE
+122 FIMENQ
+9 SE
+13 achei
+17 .DIF.
+4 0
+91 ENTAO
+11 ESCREVA
+18 'x = '
+19 ,
+13 x
+19 ,
+18 'é o'
+19 ,
+13 achei
+19 ,
+18 ' numero da lista'
+92 SENAO
+11 ESCREVA
+18 'x ='
+19 ,
+13 x
+19 ,
+18 'não foi encontrado na lista'
+93 FIMSE
+1 FIMPROG
+50 $
