@@ -2,21 +2,16 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-typedef struct{
-    
+typedef struct{    
     int codigo;
     char nome[500];
 } Token;
 
 Token atual;
 
-
 FILE *arqTokens;
 
 int erro = 0;
-
-
 
 void prox_token(void);
 void ASD(void);
@@ -64,48 +59,35 @@ void FACA(void);
 void FIMENQ(void);
 
 
-
-int main(void) {
-    
+int main(void) {    
     atual.codigo = -1;
-    strcpy(atual.nome, " ");
-    
+    strcpy(atual.nome, " ");    
     if(!(arqTokens = fopen ("TokenNumero.txt", "r"))){//Teste de verificação da existencia do arquivo
         printf ("Arquivos não existe\n");
         return 0;
-   	}
-    
+   	}    
     ASD();
     return 0;
 }
 
-void prox_token(void) {
-    
+void prox_token(void) {    
     fscanf(arqTokens,"%d %[^\n]s\n", &atual.codigo, atual.nome);
-    
     if(atual.codigo != 50) printf("Token lido: %d %s\n", atual.codigo, atual.nome);
-    
 }
 
-void ASD(void){
-    
-    prox_token();
-    
-    inicio();
-    
+void ASD(void){    
+    prox_token();    
+    inicio();    
     if((atual.codigo == 50)&&(erro == 0)) printf("\n\nSucesso! Código reconhecido!\n");
 }
 
-
-void inicio(void) {
-    
+void inicio(void) {    
     PROGRAMA();
     corpo();
     FIMPROG();
 }
 
-void PROGRAMA(void){
-    
+void PROGRAMA(void){    
     if(atual.codigo == 0) prox_token();//Continua, existe a palavra PROGRAMA
     else{
         if(erro != 1) {
@@ -125,16 +107,14 @@ void FIMPROG(void){
     }
 }
 
-void corpo(void){
-    
+void corpo(void){    
     //DECLARACOES();
     declaracao();
     //ALGORITMO();
     descricao();
 }
 
-void declaracao(void){
-    
+void declaracao(void){    
     if(atual.codigo == 6){
         tipo();
         var();
@@ -155,8 +135,7 @@ void declaracao(void){
     }
 }
 
-void tipo(void){
-    
+void tipo(void){    
     if(atual.codigo == 6) prox_token();
     else{
         if(erro != 1) {
@@ -167,7 +146,6 @@ void tipo(void){
 }
 
 void tipoVetor(void){
-    
     if(atual.codigo == 7) prox_token();
     else{
         if(erro != 1) {
@@ -177,8 +155,7 @@ void tipoVetor(void){
     }
 }
 
-void var(void){
-    
+void var(void){    
     variavel();
     varLinha();
 }
@@ -193,8 +170,7 @@ void varLinha(void){
     }
 }
 
-void variavel(void){
-    
+void variavel(void){    
     if(atual.codigo == 13) prox_token();
     else{
         if(erro != 1) {
@@ -204,8 +180,7 @@ void variavel(void){
     }
 }
 
-void varLista(void){
-    
+void varLista(void){    
     variavelVetor();
     varListaLinha();
 }
@@ -220,8 +195,7 @@ void varListaLinha(){
     }
 }
 
-void variavelVetor(void){
-    
+void variavelVetor(void){    
     if(atual.codigo == 14) prox_token();
     else{
         if(erro != 1) {
@@ -231,8 +205,7 @@ void variavelVetor(void){
     }
 }
 
-void descricao(void){
-    
+void descricao(void){    
     if(((atual.codigo == 9)&&(strncmp(atual.nome, "SE", strlen("SE")) == 0))
        ||(atual.codigo == 10)
        ||(atual.codigo == 11)
@@ -247,14 +220,11 @@ void descricao(void){
     }
 }
 
-void comandos(void){
-    
+void comandos(void){    
     if(((atual.codigo == 13)||(atual.codigo == 14))){ //Se for algum tipo de variavel, é atribuição
         if(atual.codigo == 13) variavel();
-        else if(atual.codigo == 14) variavelVetor();
-        
-        atribuicao();
-        
+        else if(atual.codigo == 14) variavelVetor();        
+        atribuicao();        
     }else{
         if(atual.codigo == 9){
             se();
@@ -277,8 +247,7 @@ void comandos(void){
     
 }
 
-void atribuicao(void){
-    
+void atribuicao(void){    
     if(atual.codigo == 8){
         prox_token();
         expressaoAritmetica();
@@ -290,8 +259,7 @@ void atribuicao(void){
     }
 }
 
-void se(void){
-    
+void se(void){    
     SE();
     expressaoLogica();
     ENTAO();
@@ -301,7 +269,6 @@ void se(void){
 }
 
 void SE(void){
-
     if(atual.codigo == 9){
         prox_token();
     }else{
@@ -313,7 +280,6 @@ void SE(void){
 }
 
 void ENTAO(void){
-
     if(atual.codigo == 91){
         prox_token();
     }else{
@@ -325,7 +291,6 @@ void ENTAO(void){
 }
 
 void SENAO(void){
-
     if(atual.codigo == 92){
         prox_token();
         descricao();
@@ -336,7 +301,6 @@ void SENAO(void){
 }
 
 void FIMSE(void){
-
     if(atual.codigo == 93){
         prox_token();
     }else{
@@ -348,7 +312,6 @@ void FIMSE(void){
 }
 
 void expressaoAritmetica(void){
-    
     if(atual.codigo == 20){//abre parenteses
         prox_token();
         expressaoAritmetica();
@@ -385,15 +348,12 @@ void expressaoAritmeticaLinha(void){
     }else{
         //Continua
         //Acabou a Expressao Aritmetica
-    }
-    
+    }    
 }
 
-void operadorAritmetico(void){
-    
+void operadorAritmetico(void){    
     if(atual.codigo == 15){
-        prox_token();
-        
+        prox_token();        
     }else{
         if(erro != 1) {
             erro = 1;
@@ -402,18 +362,15 @@ void operadorAritmetico(void){
     }
 }
 
-void expressaoRelacional(void){
-    
+void expressaoRelacional(void){    
     expressaoAritmetica();
     operadorRelacional();
     expressaoAritmetica();
 }
 
-void operadorRelacional(){
-    
+void operadorRelacional(){    
     if(atual.codigo == 17){
-        prox_token();
-        
+        prox_token();        
     }else{
         if(erro != 1) {
             erro = 1;
@@ -423,11 +380,9 @@ void operadorRelacional(){
 }
 
 void expressaoLogica(void){
-
     if(atual.codigo == 22){
         prox_token();
-        expressaoLogica();
-        
+        expressaoLogica();        
     }else{
         expressaoRelacional();
         expressaoLogicaLinha();
@@ -435,21 +390,18 @@ void expressaoLogica(void){
 }
 
 void expressaoLogicaLinha(void){
-
     if(atual.codigo == 16){ //operador logico
             operadorLogico();
             expressaoRelacional();
-        }else{
-            //Se o proximo nao for um operador, acabou a expressao logica
-            //Continuar
-        }
+    }else{
+        //Se o proximo nao for um operador, acabou a expressao logica
+        //Continuar
+    }
 }
 
-void operadorLogico(void){
-    
+void operadorLogico(void){    
     if(atual.codigo == 16){
-        prox_token();
-        
+        prox_token();        
     }else{
         if(erro != 1) {
             erro = 1;
@@ -459,13 +411,11 @@ void operadorLogico(void){
 }
 
 void escrita(void){
-
     ESCREVA();
     saida();
 }
 
 void saida(void){
-
     if(atual.codigo == 13){//Token de Variavel
         variavel();
         saidaLinha();
@@ -516,8 +466,7 @@ void saidaLinha(void){
 
 void ESCREVA(void){
     if(atual.codigo == 11){
-        prox_token();
-        
+        prox_token();        
     }else{
         if(erro != 1) {
             erro = 1;
@@ -528,8 +477,7 @@ void ESCREVA(void){
 
 void mensagem(void){
     if(atual.codigo == 18){
-        prox_token();
-        
+        prox_token();        
     }else{
         if(erro != 1) {
             erro = 1;
@@ -540,13 +488,11 @@ void mensagem(void){
 }
 
 void leitura(void){
-
     LEIA();
     entrada();
 }
 
 void entrada(void){
-
     if(atual.codigo == 13){
         variavel();
         entradaLinha();
@@ -587,8 +533,7 @@ void entradaLinha(void){
 
 void LEIA(void){
     if(atual.codigo == 10){
-        prox_token();
-        
+        prox_token();        
     }else{
         if(erro != 1) {
             erro = 1;
@@ -597,8 +542,7 @@ void LEIA(void){
     }
 }
 
-void laco(void){
-    
+void laco(void){    
     ENQUANTO();
     expressaoLogica();
     FACA();
@@ -607,7 +551,6 @@ void laco(void){
 }
 
 void ENQUANTO(void){
-
     if(atual.codigo == 12){
         prox_token();
     }else{
@@ -619,7 +562,6 @@ void ENQUANTO(void){
 }
 
 void FACA(void){
-
     if(atual.codigo == 121){
         prox_token();            
     }else{
@@ -632,7 +574,6 @@ void FACA(void){
 }
 
 void FIMENQ(void){
-
     if(atual.codigo == 122){
         prox_token();            
     }else{
@@ -642,5 +583,3 @@ void FIMENQ(void){
         }
     }
 }
-
-
