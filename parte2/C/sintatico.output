@@ -1,0 +1,1145 @@
+Grammar
+
+    0 $accept: Ini $end
+
+    1 Ini: S
+
+    2 S: programa corpo fimProg
+
+    3 corpo: declaracao descricao
+
+    4 declaracao: tipo var declaracao
+    5           | tipoLista variavelLista declaracao
+    6           | /* empty */
+
+    7 tipo: inteiro
+    8     | real
+
+    9 tipoLista: listaInt
+   10          | listaReal
+
+   11 var: variavel var2
+
+   12 var2: virgula variavel var2
+   13     | /* empty */
+
+   14 variavelLista: variavelVetor variavelLista2
+
+   15 variavelLista2: virgula variavelVetor variavelLista2
+   16               | /* empty */
+
+   17 descricao: comandos descricao
+   18          | /* empty */
+
+   19 comandos: SE
+   20         | LEITURA
+   21         | ESCRITA
+   22         | LACO
+   23         | variavel ATRIBUICAO
+   24         | variavelVetor ATRIBUICAO
+
+   25 ATRIBUICAO: atribuicao expressaoAritmetica
+
+   26 SE: se expressaoLogica entao descricao SENAO fimse
+
+   27 SENAO: senao descricao
+   28      | /* empty */
+
+   29 ESCRITA: escreva saida
+
+   30 saida: variavel saida2
+   31      | variavelVetor saida2
+   32      | mensagem saida2
+
+   33 saida2: virgula variavel saida2
+   34       | virgula variavelVetor saida2
+   35       | virgula mensagem saida2
+   36       | /* empty */
+
+   37 LEITURA: leia LEITURA
+   38        | variavel
+   39        | variavel virgula LEITURA
+   40        | variavelVetor
+   41        | variavelVetor virgula LEITURA
+
+   42 LACO: enquanto expressaoLogica faca descricao fimEnq
+
+   43 expressaoAritmetica: abreParenteses expressaoAritmetica fechaParenteses expressaoAritmetica2
+   44                    | variavel expressaoAritmetica2
+   45                    | variavelVetor expressaoAritmetica2
+   46                    | numero expressaoAritmetica2
+   47                    | numeroReal expressaoAritmetica2
+
+   48 expressaoAritmetica2: op expressaoAritmetica
+   49                     | /* empty */
+
+   50 expressaoRelacional: expressaoAritmetica opRelacional expressaoAritmetica
+
+   51 expressaoLogica: opLogicoNeg expressaoLogica
+   52                | expressaoRelacional expressaoLogica2
+
+   53 expressaoLogica2: opLogico expressaoLogica
+   54                 | /* empty */
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+programa (258) 2
+fimProg (259) 2
+numero (260) 46
+numeroReal (261) 47
+inteiro (262) 7
+real (263) 8
+mensagem (264) 32 35
+virgula (265) 12 15 33 34 35 39 41
+abreParenteses (266) 43
+fechaParenteses (267) 43
+opLogicoNeg (268) 51
+listaInt (269) 9
+listaReal (270) 10
+atribuicao (271) 25
+se (272) 26
+entao (273) 26
+senao (274) 27
+fimse (275) 26
+leia (276) 37
+escreva (277) 29
+enquanto (278) 42
+faca (279) 42
+fimEnq (280) 42
+variavel (281) 11 12 23 30 33 38 39 44
+variavelVetor (282) 14 15 24 31 34 40 41 45
+op (283) 48
+opLogico (284) 53
+opRelacional (285) 50
+
+
+Nonterminals, with rules where they appear
+
+$accept (31)
+    on left: 0
+Ini (32)
+    on left: 1, on right: 0
+S (33)
+    on left: 2, on right: 1
+corpo (34)
+    on left: 3, on right: 2
+declaracao (35)
+    on left: 4 5 6, on right: 3 4 5
+tipo (36)
+    on left: 7 8, on right: 4
+tipoLista (37)
+    on left: 9 10, on right: 5
+var (38)
+    on left: 11, on right: 4
+var2 (39)
+    on left: 12 13, on right: 11 12
+variavelLista (40)
+    on left: 14, on right: 5
+variavelLista2 (41)
+    on left: 15 16, on right: 14 15
+descricao (42)
+    on left: 17 18, on right: 3 17 26 27 42
+comandos (43)
+    on left: 19 20 21 22 23 24, on right: 17
+ATRIBUICAO (44)
+    on left: 25, on right: 23 24
+SE (45)
+    on left: 26, on right: 19
+SENAO (46)
+    on left: 27 28, on right: 26
+ESCRITA (47)
+    on left: 29, on right: 21
+saida (48)
+    on left: 30 31 32, on right: 29
+saida2 (49)
+    on left: 33 34 35 36, on right: 30 31 32 33 34 35
+LEITURA (50)
+    on left: 37 38 39 40 41, on right: 20 37 39 41
+LACO (51)
+    on left: 42, on right: 22
+expressaoAritmetica (52)
+    on left: 43 44 45 46 47, on right: 25 43 48 50
+expressaoAritmetica2 (53)
+    on left: 48 49, on right: 43 44 45 46 47
+expressaoRelacional (54)
+    on left: 50, on right: 52
+expressaoLogica (55)
+    on left: 51 52, on right: 26 42 51 53
+expressaoLogica2 (56)
+    on left: 53 54, on right: 52
+
+
+state 0
+
+    0 $accept: . Ini $end
+
+    programa  shift, and go to state 1
+
+    Ini  go to state 2
+    S    go to state 3
+
+
+state 1
+
+    2 S: programa . corpo fimProg
+
+    inteiro    shift, and go to state 4
+    real       shift, and go to state 5
+    listaInt   shift, and go to state 6
+    listaReal  shift, and go to state 7
+
+    $default  reduce using rule 6 (declaracao)
+
+    corpo       go to state 8
+    declaracao  go to state 9
+    tipo        go to state 10
+    tipoLista   go to state 11
+
+
+state 2
+
+    0 $accept: Ini . $end
+
+    $end  shift, and go to state 12
+
+
+state 3
+
+    1 Ini: S .
+
+    $default  reduce using rule 1 (Ini)
+
+
+state 4
+
+    7 tipo: inteiro .
+
+    $default  reduce using rule 7 (tipo)
+
+
+state 5
+
+    8 tipo: real .
+
+    $default  reduce using rule 8 (tipo)
+
+
+state 6
+
+    9 tipoLista: listaInt .
+
+    $default  reduce using rule 9 (tipoLista)
+
+
+state 7
+
+   10 tipoLista: listaReal .
+
+    $default  reduce using rule 10 (tipoLista)
+
+
+state 8
+
+    2 S: programa corpo . fimProg
+
+    fimProg  shift, and go to state 13
+
+
+state 9
+
+    3 corpo: declaracao . descricao
+
+    se             shift, and go to state 14
+    leia           shift, and go to state 15
+    escreva        shift, and go to state 16
+    enquanto       shift, and go to state 17
+    variavel       shift, and go to state 18
+    variavelVetor  shift, and go to state 19
+
+    $default  reduce using rule 18 (descricao)
+
+    descricao  go to state 20
+    comandos   go to state 21
+    SE         go to state 22
+    ESCRITA    go to state 23
+    LEITURA    go to state 24
+    LACO       go to state 25
+
+
+state 10
+
+    4 declaracao: tipo . var declaracao
+
+    variavel  shift, and go to state 26
+
+    var  go to state 27
+
+
+state 11
+
+    5 declaracao: tipoLista . variavelLista declaracao
+
+    variavelVetor  shift, and go to state 28
+
+    variavelLista  go to state 29
+
+
+state 12
+
+    0 $accept: Ini $end .
+
+    $default  accept
+
+
+state 13
+
+    2 S: programa corpo fimProg .
+
+    $default  reduce using rule 2 (S)
+
+
+state 14
+
+   26 SE: se . expressaoLogica entao descricao SENAO fimse
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    opLogicoNeg     shift, and go to state 33
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 36
+    expressaoRelacional  go to state 37
+    expressaoLogica      go to state 38
+
+
+state 15
+
+   37 LEITURA: leia . LEITURA
+
+    leia           shift, and go to state 15
+    variavel       shift, and go to state 39
+    variavelVetor  shift, and go to state 40
+
+    LEITURA  go to state 41
+
+
+state 16
+
+   29 ESCRITA: escreva . saida
+
+    mensagem       shift, and go to state 42
+    variavel       shift, and go to state 43
+    variavelVetor  shift, and go to state 44
+
+    saida  go to state 45
+
+
+state 17
+
+   42 LACO: enquanto . expressaoLogica faca descricao fimEnq
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    opLogicoNeg     shift, and go to state 33
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 36
+    expressaoRelacional  go to state 37
+    expressaoLogica      go to state 46
+
+
+state 18
+
+   23 comandos: variavel . ATRIBUICAO
+   38 LEITURA: variavel .
+   39        | variavel . virgula LEITURA
+
+    virgula     shift, and go to state 47
+    atribuicao  shift, and go to state 48
+
+    $default  reduce using rule 38 (LEITURA)
+
+    ATRIBUICAO  go to state 49
+
+
+state 19
+
+   24 comandos: variavelVetor . ATRIBUICAO
+   40 LEITURA: variavelVetor .
+   41        | variavelVetor . virgula LEITURA
+
+    virgula     shift, and go to state 50
+    atribuicao  shift, and go to state 48
+
+    $default  reduce using rule 40 (LEITURA)
+
+    ATRIBUICAO  go to state 51
+
+
+state 20
+
+    3 corpo: declaracao descricao .
+
+    $default  reduce using rule 3 (corpo)
+
+
+state 21
+
+   17 descricao: comandos . descricao
+
+    se             shift, and go to state 14
+    leia           shift, and go to state 15
+    escreva        shift, and go to state 16
+    enquanto       shift, and go to state 17
+    variavel       shift, and go to state 18
+    variavelVetor  shift, and go to state 19
+
+    $default  reduce using rule 18 (descricao)
+
+    descricao  go to state 52
+    comandos   go to state 21
+    SE         go to state 22
+    ESCRITA    go to state 23
+    LEITURA    go to state 24
+    LACO       go to state 25
+
+
+state 22
+
+   19 comandos: SE .
+
+    $default  reduce using rule 19 (comandos)
+
+
+state 23
+
+   21 comandos: ESCRITA .
+
+    $default  reduce using rule 21 (comandos)
+
+
+state 24
+
+   20 comandos: LEITURA .
+
+    $default  reduce using rule 20 (comandos)
+
+
+state 25
+
+   22 comandos: LACO .
+
+    $default  reduce using rule 22 (comandos)
+
+
+state 26
+
+   11 var: variavel . var2
+
+    virgula  shift, and go to state 53
+
+    $default  reduce using rule 13 (var2)
+
+    var2  go to state 54
+
+
+state 27
+
+    4 declaracao: tipo var . declaracao
+
+    inteiro    shift, and go to state 4
+    real       shift, and go to state 5
+    listaInt   shift, and go to state 6
+    listaReal  shift, and go to state 7
+
+    $default  reduce using rule 6 (declaracao)
+
+    declaracao  go to state 55
+    tipo        go to state 10
+    tipoLista   go to state 11
+
+
+state 28
+
+   14 variavelLista: variavelVetor . variavelLista2
+
+    virgula  shift, and go to state 56
+
+    $default  reduce using rule 16 (variavelLista2)
+
+    variavelLista2  go to state 57
+
+
+state 29
+
+    5 declaracao: tipoLista variavelLista . declaracao
+
+    inteiro    shift, and go to state 4
+    real       shift, and go to state 5
+    listaInt   shift, and go to state 6
+    listaReal  shift, and go to state 7
+
+    $default  reduce using rule 6 (declaracao)
+
+    declaracao  go to state 58
+    tipo        go to state 10
+    tipoLista   go to state 11
+
+
+state 30
+
+   46 expressaoAritmetica: numero . expressaoAritmetica2
+
+    op  shift, and go to state 59
+
+    $default  reduce using rule 49 (expressaoAritmetica2)
+
+    expressaoAritmetica2  go to state 60
+
+
+state 31
+
+   47 expressaoAritmetica: numeroReal . expressaoAritmetica2
+
+    op  shift, and go to state 59
+
+    $default  reduce using rule 49 (expressaoAritmetica2)
+
+    expressaoAritmetica2  go to state 61
+
+
+state 32
+
+   43 expressaoAritmetica: abreParenteses . expressaoAritmetica fechaParenteses expressaoAritmetica2
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 62
+
+
+state 33
+
+   51 expressaoLogica: opLogicoNeg . expressaoLogica
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    opLogicoNeg     shift, and go to state 33
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 36
+    expressaoRelacional  go to state 37
+    expressaoLogica      go to state 63
+
+
+state 34
+
+   44 expressaoAritmetica: variavel . expressaoAritmetica2
+
+    op  shift, and go to state 59
+
+    $default  reduce using rule 49 (expressaoAritmetica2)
+
+    expressaoAritmetica2  go to state 64
+
+
+state 35
+
+   45 expressaoAritmetica: variavelVetor . expressaoAritmetica2
+
+    op  shift, and go to state 59
+
+    $default  reduce using rule 49 (expressaoAritmetica2)
+
+    expressaoAritmetica2  go to state 65
+
+
+state 36
+
+   50 expressaoRelacional: expressaoAritmetica . opRelacional expressaoAritmetica
+
+    opRelacional  shift, and go to state 66
+
+
+state 37
+
+   52 expressaoLogica: expressaoRelacional . expressaoLogica2
+
+    opLogico  shift, and go to state 67
+
+    $default  reduce using rule 54 (expressaoLogica2)
+
+    expressaoLogica2  go to state 68
+
+
+state 38
+
+   26 SE: se expressaoLogica . entao descricao SENAO fimse
+
+    entao  shift, and go to state 69
+
+
+state 39
+
+   38 LEITURA: variavel .
+   39        | variavel . virgula LEITURA
+
+    virgula  shift, and go to state 47
+
+    $default  reduce using rule 38 (LEITURA)
+
+
+state 40
+
+   40 LEITURA: variavelVetor .
+   41        | variavelVetor . virgula LEITURA
+
+    virgula  shift, and go to state 50
+
+    $default  reduce using rule 40 (LEITURA)
+
+
+state 41
+
+   37 LEITURA: leia LEITURA .
+
+    $default  reduce using rule 37 (LEITURA)
+
+
+state 42
+
+   32 saida: mensagem . saida2
+
+    virgula  shift, and go to state 70
+
+    $default  reduce using rule 36 (saida2)
+
+    saida2  go to state 71
+
+
+state 43
+
+   30 saida: variavel . saida2
+
+    virgula  shift, and go to state 70
+
+    $default  reduce using rule 36 (saida2)
+
+    saida2  go to state 72
+
+
+state 44
+
+   31 saida: variavelVetor . saida2
+
+    virgula  shift, and go to state 70
+
+    $default  reduce using rule 36 (saida2)
+
+    saida2  go to state 73
+
+
+state 45
+
+   29 ESCRITA: escreva saida .
+
+    $default  reduce using rule 29 (ESCRITA)
+
+
+state 46
+
+   42 LACO: enquanto expressaoLogica . faca descricao fimEnq
+
+    faca  shift, and go to state 74
+
+
+state 47
+
+   39 LEITURA: variavel virgula . LEITURA
+
+    leia           shift, and go to state 15
+    variavel       shift, and go to state 39
+    variavelVetor  shift, and go to state 40
+
+    LEITURA  go to state 75
+
+
+state 48
+
+   25 ATRIBUICAO: atribuicao . expressaoAritmetica
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 76
+
+
+state 49
+
+   23 comandos: variavel ATRIBUICAO .
+
+    $default  reduce using rule 23 (comandos)
+
+
+state 50
+
+   41 LEITURA: variavelVetor virgula . LEITURA
+
+    leia           shift, and go to state 15
+    variavel       shift, and go to state 39
+    variavelVetor  shift, and go to state 40
+
+    LEITURA  go to state 77
+
+
+state 51
+
+   24 comandos: variavelVetor ATRIBUICAO .
+
+    $default  reduce using rule 24 (comandos)
+
+
+state 52
+
+   17 descricao: comandos descricao .
+
+    $default  reduce using rule 17 (descricao)
+
+
+state 53
+
+   12 var2: virgula . variavel var2
+
+    variavel  shift, and go to state 78
+
+
+state 54
+
+   11 var: variavel var2 .
+
+    $default  reduce using rule 11 (var)
+
+
+state 55
+
+    4 declaracao: tipo var declaracao .
+
+    $default  reduce using rule 4 (declaracao)
+
+
+state 56
+
+   15 variavelLista2: virgula . variavelVetor variavelLista2
+
+    variavelVetor  shift, and go to state 79
+
+
+state 57
+
+   14 variavelLista: variavelVetor variavelLista2 .
+
+    $default  reduce using rule 14 (variavelLista)
+
+
+state 58
+
+    5 declaracao: tipoLista variavelLista declaracao .
+
+    $default  reduce using rule 5 (declaracao)
+
+
+state 59
+
+   48 expressaoAritmetica2: op . expressaoAritmetica
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 80
+
+
+state 60
+
+   46 expressaoAritmetica: numero expressaoAritmetica2 .
+
+    $default  reduce using rule 46 (expressaoAritmetica)
+
+
+state 61
+
+   47 expressaoAritmetica: numeroReal expressaoAritmetica2 .
+
+    $default  reduce using rule 47 (expressaoAritmetica)
+
+
+state 62
+
+   43 expressaoAritmetica: abreParenteses expressaoAritmetica . fechaParenteses expressaoAritmetica2
+
+    fechaParenteses  shift, and go to state 81
+
+
+state 63
+
+   51 expressaoLogica: opLogicoNeg expressaoLogica .
+
+    $default  reduce using rule 51 (expressaoLogica)
+
+
+state 64
+
+   44 expressaoAritmetica: variavel expressaoAritmetica2 .
+
+    $default  reduce using rule 44 (expressaoAritmetica)
+
+
+state 65
+
+   45 expressaoAritmetica: variavelVetor expressaoAritmetica2 .
+
+    $default  reduce using rule 45 (expressaoAritmetica)
+
+
+state 66
+
+   50 expressaoRelacional: expressaoAritmetica opRelacional . expressaoAritmetica
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 82
+
+
+state 67
+
+   53 expressaoLogica2: opLogico . expressaoLogica
+
+    numero          shift, and go to state 30
+    numeroReal      shift, and go to state 31
+    abreParenteses  shift, and go to state 32
+    opLogicoNeg     shift, and go to state 33
+    variavel        shift, and go to state 34
+    variavelVetor   shift, and go to state 35
+
+    expressaoAritmetica  go to state 36
+    expressaoRelacional  go to state 37
+    expressaoLogica      go to state 83
+
+
+state 68
+
+   52 expressaoLogica: expressaoRelacional expressaoLogica2 .
+
+    $default  reduce using rule 52 (expressaoLogica)
+
+
+state 69
+
+   26 SE: se expressaoLogica entao . descricao SENAO fimse
+
+    se             shift, and go to state 14
+    leia           shift, and go to state 15
+    escreva        shift, and go to state 16
+    enquanto       shift, and go to state 17
+    variavel       shift, and go to state 18
+    variavelVetor  shift, and go to state 19
+
+    $default  reduce using rule 18 (descricao)
+
+    descricao  go to state 84
+    comandos   go to state 21
+    SE         go to state 22
+    ESCRITA    go to state 23
+    LEITURA    go to state 24
+    LACO       go to state 25
+
+
+state 70
+
+   33 saida2: virgula . variavel saida2
+   34       | virgula . variavelVetor saida2
+   35       | virgula . mensagem saida2
+
+    mensagem       shift, and go to state 85
+    variavel       shift, and go to state 86
+    variavelVetor  shift, and go to state 87
+
+
+state 71
+
+   32 saida: mensagem saida2 .
+
+    $default  reduce using rule 32 (saida)
+
+
+state 72
+
+   30 saida: variavel saida2 .
+
+    $default  reduce using rule 30 (saida)
+
+
+state 73
+
+   31 saida: variavelVetor saida2 .
+
+    $default  reduce using rule 31 (saida)
+
+
+state 74
+
+   42 LACO: enquanto expressaoLogica faca . descricao fimEnq
+
+    se             shift, and go to state 14
+    leia           shift, and go to state 15
+    escreva        shift, and go to state 16
+    enquanto       shift, and go to state 17
+    variavel       shift, and go to state 18
+    variavelVetor  shift, and go to state 19
+
+    $default  reduce using rule 18 (descricao)
+
+    descricao  go to state 88
+    comandos   go to state 21
+    SE         go to state 22
+    ESCRITA    go to state 23
+    LEITURA    go to state 24
+    LACO       go to state 25
+
+
+state 75
+
+   39 LEITURA: variavel virgula LEITURA .
+
+    $default  reduce using rule 39 (LEITURA)
+
+
+state 76
+
+   25 ATRIBUICAO: atribuicao expressaoAritmetica .
+
+    $default  reduce using rule 25 (ATRIBUICAO)
+
+
+state 77
+
+   41 LEITURA: variavelVetor virgula LEITURA .
+
+    $default  reduce using rule 41 (LEITURA)
+
+
+state 78
+
+   12 var2: virgula variavel . var2
+
+    virgula  shift, and go to state 53
+
+    $default  reduce using rule 13 (var2)
+
+    var2  go to state 89
+
+
+state 79
+
+   15 variavelLista2: virgula variavelVetor . variavelLista2
+
+    virgula  shift, and go to state 56
+
+    $default  reduce using rule 16 (variavelLista2)
+
+    variavelLista2  go to state 90
+
+
+state 80
+
+   48 expressaoAritmetica2: op expressaoAritmetica .
+
+    $default  reduce using rule 48 (expressaoAritmetica2)
+
+
+state 81
+
+   43 expressaoAritmetica: abreParenteses expressaoAritmetica fechaParenteses . expressaoAritmetica2
+
+    op  shift, and go to state 59
+
+    $default  reduce using rule 49 (expressaoAritmetica2)
+
+    expressaoAritmetica2  go to state 91
+
+
+state 82
+
+   50 expressaoRelacional: expressaoAritmetica opRelacional expressaoAritmetica .
+
+    $default  reduce using rule 50 (expressaoRelacional)
+
+
+state 83
+
+   53 expressaoLogica2: opLogico expressaoLogica .
+
+    $default  reduce using rule 53 (expressaoLogica2)
+
+
+state 84
+
+   26 SE: se expressaoLogica entao descricao . SENAO fimse
+
+    senao  shift, and go to state 92
+
+    $default  reduce using rule 28 (SENAO)
+
+    SENAO  go to state 93
+
+
+state 85
+
+   35 saida2: virgula mensagem . saida2
+
+    virgula  shift, and go to state 70
+
+    $default  reduce using rule 36 (saida2)
+
+    saida2  go to state 94
+
+
+state 86
+
+   33 saida2: virgula variavel . saida2
+
+    virgula  shift, and go to state 70
+
+    $default  reduce using rule 36 (saida2)
+
+    saida2  go to state 95
+
+
+state 87
+
+   34 saida2: virgula variavelVetor . saida2
+
+    virgula  shift, and go to state 70
+
+    $default  reduce using rule 36 (saida2)
+
+    saida2  go to state 96
+
+
+state 88
+
+   42 LACO: enquanto expressaoLogica faca descricao . fimEnq
+
+    fimEnq  shift, and go to state 97
+
+
+state 89
+
+   12 var2: virgula variavel var2 .
+
+    $default  reduce using rule 12 (var2)
+
+
+state 90
+
+   15 variavelLista2: virgula variavelVetor variavelLista2 .
+
+    $default  reduce using rule 15 (variavelLista2)
+
+
+state 91
+
+   43 expressaoAritmetica: abreParenteses expressaoAritmetica fechaParenteses expressaoAritmetica2 .
+
+    $default  reduce using rule 43 (expressaoAritmetica)
+
+
+state 92
+
+   27 SENAO: senao . descricao
+
+    se             shift, and go to state 14
+    leia           shift, and go to state 15
+    escreva        shift, and go to state 16
+    enquanto       shift, and go to state 17
+    variavel       shift, and go to state 18
+    variavelVetor  shift, and go to state 19
+
+    $default  reduce using rule 18 (descricao)
+
+    descricao  go to state 98
+    comandos   go to state 21
+    SE         go to state 22
+    ESCRITA    go to state 23
+    LEITURA    go to state 24
+    LACO       go to state 25
+
+
+state 93
+
+   26 SE: se expressaoLogica entao descricao SENAO . fimse
+
+    fimse  shift, and go to state 99
+
+
+state 94
+
+   35 saida2: virgula mensagem saida2 .
+
+    $default  reduce using rule 35 (saida2)
+
+
+state 95
+
+   33 saida2: virgula variavel saida2 .
+
+    $default  reduce using rule 33 (saida2)
+
+
+state 96
+
+   34 saida2: virgula variavelVetor saida2 .
+
+    $default  reduce using rule 34 (saida2)
+
+
+state 97
+
+   42 LACO: enquanto expressaoLogica faca descricao fimEnq .
+
+    $default  reduce using rule 42 (LACO)
+
+
+state 98
+
+   27 SENAO: senao descricao .
+
+    $default  reduce using rule 27 (SENAO)
+
+
+state 99
+
+   26 SE: se expressaoLogica entao descricao SENAO fimse .
+
+    $default  reduce using rule 26 (SE)

@@ -1,0 +1,44 @@
+PROGRAMA {Inicio do programa}
+
+{Declarações de variáveis e tipos}
+
+INTEIRO n, x, posicao, achei
+LISTAINT A[20]
+
+{Salvando os dados na lista}
+
+ESCREVA 'Quantos números vai armazenar na lista?'
+LEIA n
+posicao := 1
+ENQUANTO posicao .MEI. n FACA
+ESCREVA 'Digite o próximo número da lista: '
+LEIA A[posicao]
+posicao := posicao + 1
+FIMENQ
+
+{Pega o número que será pesquisado na lista}
+
+ESCREVA 'Digite o número para pesquisar na lista'
+LEIA x
+posicao := 1
+achei := 0
+
+{Faz a busca}
+ENQUANTO posicao .MEI. n FACA
+SE A[posicao] .IGU. x
+ENTAO
+achei := posicao
+posicao := n + 1
+SENAO
+posicao := posicao + 1
+FIMSE
+FIMENQ
+SE achei .DIF. 0
+ENTAO
+ESCREVA 'x = ', x, 'é o', achei, ' numero da lista'
+SENAO
+ESCREVA 'x =', x, 'não foi encontrado na lista'
+FIMSE
+
+{Encerra o programa}
+FIMPROG
